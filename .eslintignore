@@ -1,0 +1,8 @@
+*/.nuxt/
+assets/
+
+docs
+test
+iconfont.*
+app.html
+

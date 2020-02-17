@@ -1,0 +1,342 @@
+/* img */
+img {
+  transition: all 0.5s;
+}
+img:hover {
+  transform: scale(1.09);
+}
+.section .content {
+  opacity: 0;
+  transition: opacity .5s;
+}
+.run-animation .content{
+  opacity: 1;
+}
+/* box-title */
+.run-animation .box-title h2 {
+  animation: boxTitleH2 0.7s;
+}
+.run-animation .box-title p,
+.run-animation .box-title::after {
+  animation: boxTitleP 1s;
+}
+/* header */
+.header .bg {
+  transform: scale(1);
+  transition: all 0.5s;
+}
+.header.run-animation .bg {
+  transform: scale(1.1);
+}
+
+.header.run-animation .logo {
+  animation: headerLogo 0.5s;
+}
+.header.run-animation .logo-into h2 {
+  animation: headerLogoIntoH2 0.7s;
+}
+.header.run-animation .logo-into p {
+  animation: headerLogoIntoH2 0.75s;
+}
+.header.run-animation .qr-code .qr-code-img {
+  animation: headerLogoQRCodeImg 0.7s;
+}
+.header.run-animation .qr-code .qr-code-buttons {
+  animation: headerLogoQRCodeButtons 0.8s;
+}
+.header.run-animation .view {
+  animation: headerLogoView 0.8s;
+}
+
+/* features */
+.features.run-animation .features-list .item-1 {
+  animation: featuresItem1 0.8s;
+}
+.features.run-animation .features-list .item-2 {
+  animation: featuresItem2 1s;
+}
+.features.run-animation .features-list .item-3 {
+  animation: featuresItem3 0.8s;
+}
+
+/* events */
+.events.run-animation .events-list .item-1 {
+  animation: eventsItem1 1s;
+}
+.events.run-animation .events-list .item-2 {
+  animation: eventsItem2 0.7s;
+}
+.events.run-animation .events-list .item-3 {
+  animation: eventsItem3 1s;
+}
+.events.run-animation .events-list .item-4 {
+  animation: eventsItem4 0.7s;
+}
+.events.run-animation .events-list .item-5 {
+  animation: eventsItem5 1s;
+}
+
+/* database */
+.database.run-animation .database-list .item-1 {
+  animation: databaseItem1 1s;
+}
+.database.run-animation .database-list .item-2 {
+  animation: databaseItem2 1s;
+}
+.database.run-animation .database-list .item-3 {
+  animation: databaseItem3 1s;
+}
+
+/* video */
+.video .bg {
+  transform: scale(1);
+  transition: all 0.5s;
+}
+.video.run-animation .bg {
+  transform: scale(1.1);
+}
+.video.run-animation .video-list .item-1 {
+  animation: videoItem1 1s;
+}
+
+/* boxTitle */
+@keyframes boxTitleH2 {
+  from {
+    transform: translate(0, 60px);
+    opacity: 0;
+  }
+  70% {
+    opacity: 0.8;
+  }
+  to {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+}
+@keyframes boxTitleP {
+  from {
+    transform: translate(0, 40px);
+    opacity: 0;
+  }
+  70% {
+    opacity: 0.8;
+  }
+  to {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+}
+
+/* header */
+@keyframes headerLogo {
+  from {
+    transform: translate(-400px, 0);
+  }
+  80% {
+    transform: translate(30px, 0);
+  }
+  to {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes headerLogoIntoH2 {
+  from {
+    transform: translate(-1200px, 0);
+  }
+  80% {
+    transform: translate(100px, 0);
+  }
+  to {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes headerLogoIntoP {
+  from {
+    transform: translate(-1800px, 0);
+  }
+  80% {
+    transform: translate(80px, 0);
+  }
+  to {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes headerLogoQRCodeImg {
+  from {
+    transform: translate(-1400px, 0);
+  }
+  80% {
+    transform: translate(40px, 0);
+  }
+  to {
+    transform: translate(0, 0);
+  }
+}
+@keyframes headerLogoQRCodeButtons {
+  from {
+    transform: translate(-1400px, 0);
+  }
+  80% {
+    transform: translate(120px, 0);
+  }
+  to {
+    transform: translate(0, 0);
+  }
+}
+@keyframes headerLogoView {
+  from {
+    transform: translate(0, 60px);
+    opacity: 0;
+  }
+  to {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+}
+
+/* features */
+@keyframes featuresItem1 {
+  from {
+    transform: translate(200px, 0);
+    opacity: 0;
+  }
+  80% {
+    transform: translate(-20px, 0);
+  }
+  to {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+}
+@keyframes featuresItem2 {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes featuresItem3 {
+  from {
+    transform: translate(-200px, 0);
+    opacity: 0;
+  }
+  80% {
+    transform: translate(20px, 0);
+  }
+  to {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+}
+
+/* events */
+@keyframes eventsItem1 {
+  from {
+    transform: translate(-1200px, 0);
+    opacity: 0;
+  }
+  80% {
+    transform: translate(20px, 0);
+  }
+  to {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+}
+@keyframes eventsItem2 {
+  from {
+    transform: translate(-900px, 0);
+    opacity: 0;
+  }
+  80% {
+    transform: translate(20px, 0);
+  }
+  to {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+}
+@keyframes eventsItem3 {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes eventsItem4 {
+  from {
+    transform: translate(900px, 0);
+    opacity: 0;
+  }
+  80% {
+    transform: translate(-20px, 0);
+  }
+  to {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+}
+@keyframes eventsItem5 {
+  from {
+    transform: translate(1200px, 0);
+    opacity: 0;
+  }
+  80% {
+    transform: translate(-20px, 0);
+  }
+  to {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+}
+
+/* database */
+@keyframes databaseItem1 {
+  from {
+    transform: translate(200px, 0);
+    opacity: 0;
+  }
+  80% {
+    transform: translate(-20px, 0);
+  }
+  to {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+}
+@keyframes databaseItem2 {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes databaseItem3 {
+  from {
+    transform: translate(-200px, 0);
+    opacity: 0;
+  }
+  80% {
+    transform: translate(20px, 0);
+  }
+  to {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+}
+
+/* video */
+@keyframes videoItem1 {
+  from {
+    opacity: 0.7;
+  }
+  to {
+    opacity: 1;
+  }
+}

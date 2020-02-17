@@ -1,0 +1,309 @@
+.download-main {
+  height: 100%;
+  color: #fff;
+}
+/* 通用 */
+.download-main .swiper-button-prev {
+  width: 24px;
+  height: 24px;
+  background-size: cover;
+  background-image: url("../assets/image/arrow-left.png");
+}
+.download-main .swiper-button-prev:active {
+  background-image: url("../assets/image/arrow-left-hover.png");
+}
+.download-main .swiper-button-next {
+  width: 24px;
+  height: 24px;
+  background-size: cover;
+  background-image: url("../assets/image/arrow-right.png");
+}
+.download-main .swiper-button-next:active {
+  background-image: url("../assets/image/arrow-right-hover.png");
+}
+
+/* bg */
+.bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.download-main .section {
+  overflow: hidden;
+}
+.swiper-container-horizontal >.swiper-pagination-bullets .swiper-pagination-bullet {
+  margin: 2px;
+  width: 6px;
+  height: 6px;
+}
+
+/* 下载页 */
+.download {
+  height: 100%;
+  position: relative;
+  box-sizing: border-box;
+}
+.download > * {
+  position: absolute;
+  display: block;
+  width: 100%;
+  z-index: 1;
+  font-size: 12px;
+}
+
+.download .header-logo {
+  top: 2%;
+  margin-left: 6.9%;
+  padding: 0 52px;
+  text-align: left;
+  background: url("../assets/image/header/logo.png") no-repeat left top;
+  background-size: 40px;
+}
+.download .header-logo h2 {
+  font-size: 20px;
+  line-height: 20px;
+  margin-bottom: 4px;
+}
+.download .header-logo p {
+  font-size: 12px;
+  font-weight: 100;
+}
+
+.download .bg {
+  position: absolute;
+  background-image: url("../assets/image/download/bg.png");
+}
+.download .banner {
+  top: 11.5%;
+  max-width: 76%;
+  padding-bottom: 22px;
+  left: 50%;
+  margin-left: -38%;
+}
+.download .banner-item {
+  text-align: center;
+}
+.download .banner-item img {
+  max-width: 62%;
+  max-height: 100%;
+}
+.download .swiper-pagination {
+  bottom: 0px;
+}
+.download .swiper-pagination-bullet {
+  background-color: #fff;
+}
+.download .swiper-pagination-bullet-active {
+  background-color: #007aff;
+}
+.download .version-into {
+  top: 60%;
+  line-height: 12px;
+  text-align: center;
+}
+.download .version-into p {
+  padding: 5px 0;
+}
+.download #version-number {
+  display: inline-block;
+  padding-right: 8px;
+  border-right: 1px solid #444;
+  margin-right: 4px;
+}
+.download .version-download {
+  text-align: center;
+  background-image: linear-gradient(90deg, #007aff 0%, #4a37ff 100%);
+  border-radius: 26px;
+  border-radius: 26px;
+  width: 255px;
+  height: 40px;
+  line-height: 40px;
+  color: #fefefe;
+  display: block;
+  font-size: 16px;
+  text-decoration: none;
+  margin: 7% auto;
+  animation: download-btn 0.7s ease-in-out infinite;
+}
+.download .download-into {
+  top: 79.2%;
+  text-align: center;
+  line-height: 22px;
+  color: #a0a0a0;
+}
+.download .download-into b {
+  color: #fefefe;
+}
+.download .down-to-help {
+  bottom: 1%;
+  margin-top: 32px;
+  line-height: 22px;
+  text-align: center;
+}
+.download .down-to-help .down-to-help-icon {
+  margin-top: 2.5%;
+  animation: to-help-icon 0.7s ease-in-out infinite;
+}
+
+.help-box {
+  position: relative;
+  box-sizing: border-box;
+  padding: 0 6.9%;
+  display: flex;
+  height: 100%;
+}
+.help-box .bg {
+  background-image: url("../assets/image/help/bg.png");
+}
+.help-box .banner {
+  top: 8.6%;
+  left: 50%;
+  margin-left: -45%;
+  position: absolute;
+  max-width: 90%;
+  padding-bottom: 22px;
+}
+.help-box .banner-item {
+  text-align: center;
+}
+.help-box .swiper-pagination {
+  bottom: 0px;
+}
+.help-box .swiper-pagination-bullet {
+  background-color: #fff;
+}
+.help-box .swiper-pagination-bullet-active {
+  background-color: #007aff;
+}
+.help-box .banner-item-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 9px;
+  font-family: "Futura-Bold";
+}
+.help-box .banner-item-title img {
+  width: 20px;
+  color: #fefefe;
+}
+.help-box .banner-item-into {
+  font-size: 16px;
+  margin-bottom: 6.3%;
+}
+.help-box .banner-item-pic img {
+  max-width: 50%;
+  max-height: 100%;
+}
+.help-box .back-to-download {
+  position: absolute;
+  width: 18px;
+  left: 50%;
+  margin-left: -9px;
+  bottom: 4.1%;
+  animation: to-help-icon 0.7s ease-in-out infinite;
+}
+.notsupportdiv {
+  text-align: center;
+}
+.notsupportdiv .guideimage {
+  display: block;
+  margin: 0 auto;
+}
+
+@media screen and (min-width: 750px) {
+  .download .banner-item img {
+    max-width: 180px;
+  }
+  .help-box .banner-item-pic img {
+    width: 180px;
+  }
+}
+
+@media screen and (max-height: 800px) {
+  .download .banner-item img {
+    max-width: 44%;
+  }
+  .download .version-download {
+    margin: 3% auto;
+  }
+}
+
+@media screen and (max-height: 540px) {
+  .download .version-download {
+    margin: 0.5% auto;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .download .header-logo {
+    width: 18%;
+  }
+  
+  .download .banner-item img {
+    max-width: 160px;
+  }
+}
+
+@media screen and (min-height: 1366px) {
+  .download .banner-item img {
+    max-width: 26%;
+  }
+}
+
+@media screen and (max-height: 400px) {
+  .download .header-logo {
+    height: 40px;
+  }
+  
+  .download .banner-item img {
+    max-width: 160px;
+  }
+  .download .download-into,
+  .download .version-into p{
+    display: none;
+  }
+  .download .down-to-help {
+    bottom: 1%;
+  }
+  .download .down-to-help .down-to-help-icon {
+    margin-top: 5px;
+  }
+  .help-box .banner {
+    max-height: 200px;
+  }
+}
+
+@media screen and (height: 568px) {
+  .download .version-download {
+    margin: 1% auto;
+  }
+}
+
+@keyframes download-btn {
+  from {
+    transform: scale(1);
+  }
+  60% {
+    transform: scale(1.03);
+  }
+  to {
+    transform: scale(1.01);
+  }
+}
+
+@keyframes to-help-icon {
+  from {
+    transform: translateY(0);
+  }
+  60% {
+    transform: translateY(5px);
+  }
+  to {
+    transform: translateY(1px);
+  }
+}

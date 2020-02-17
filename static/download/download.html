@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta
+      name="viewport"
+      content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"
+    />
+    <meta name="x5-orientation" content="landscape" />
+    <meta name="keywords" content="实况比分" />
+    <meta name="description" content="专业体育数据平台" />
+    <title>实况比分</title>
+    <link rel="icon" href="./assets/favicon.ico">
+    <link rel="stylesheet" href="./assets/css/reset.css" />
+    <link rel="stylesheet" href="./assets/css/swiper-3.4.2.min.css" />
+    <link rel="stylesheet" href="./style/download.css" />
+
+    <script src="./assets/js/md5.min.js"></script>
+    <script src="./assets/js/jquery.min.js"></script>
+    <script src="./assets/js/swiper-3.4.2.jquery.min.js"></script>
+  </head>
+
+  <body>
+    <div class="swiper-container download-main" id="full-page">
+      <div class="swiper-wrapper download-wrapper">
+        <!-- 下载页 -->
+        <div class="section swiper-slide download">
+          <div class="bg"></div>
+          <div class="header-logo">
+              <h2>实况比分</h2>
+              <p>专业体育数据平台</p>
+          </div>
+
+          <div class="banner swiper-container" id="banner">
+            <div class="banner-list swiper-wrapper">
+              <div class="banner-item swiper-slide">
+                <img src="./assets/image/download/view1.png" />
+              </div>
+              <div class="banner-item swiper-slide">
+                <img src="./assets/image/download/view2.png" />
+              </div>
+              <div class="banner-item swiper-slide">
+                <img src="./assets/image/download/view3.png" />
+              </div>
+              <div class="banner-item swiper-slide">
+                <img src="./assets/image/download/view4.png" />
+              </div>
+              <div class="banner-item swiper-slide">
+                <img src="./assets/image/download/view5.png" />
+              </div>
+            </div>
+            <div class="swiper-pagination banner-pagination"></div>
+            <div class="swiper-button-prev banner-button-prev"></div>
+            <div class="swiper-button-next banner-button-next"></div>
+          </div>
+
+          <div class="version-into">
+            <p>
+              <span id="version-number">版本1.0.0</span>
+              <span id="version-size">大小40.00MB</span>
+            </p>
+            <p id="version-time">
+              更新时间 2019-06-20 15:30:00
+            </p>
+            <a
+              target="_blank"
+              id="version-download"
+              class="version-download"
+              href=""
+              >立即下载</a
+            >
+          </div>
+
+          <p class="download-into">
+            请使用<b>Chrome谷歌浏览器</b>或<b>Safari浏览器</b>下载，<br />
+            下载过程中请勿切换网络。
+          </p>
+
+          <div class="down-to-help">
+            <p>下滑查看详细安装教程</p>
+            <img
+              class="down-to-help-icon"
+              src="./assets/image/download/down.png"
+              width="18"
+            />
+          </div>
+        </div>
+
+        <!-- 帮助页 -->
+        <div class="section swiper-slide help-box">
+          <div class="bg"></div>
+          <div class="banner swiper-container" id="help-banner">
+            <div class="banner-list swiper-wrapper">
+              <div class="banner-item swiper-slide">
+                <p class="banner-item-title">
+                  <img src="./assets/image/help/title.png" />
+                  step1
+                  <img src="./assets/image/help/title.png" />
+                </p>
+                <p class="banner-item-into">
+                  点击APP，查看证书
+                </p>
+                <p class="banner-item-pic">
+                  <img src="./assets/image/help/view1.png" />
+                </p>
+              </div>
+
+              <div class="banner-item swiper-slide">
+                <p class="banner-item-title">
+                  <img src="./assets/image/help/title.png" />
+                  step2
+                  <img src="./assets/image/help/title.png" />
+                </p>
+                <p class="banner-item-into">
+                  选择“设置-通用-设备管理”
+                </p>
+                <p class="banner-item-pic">
+                  <img src="./assets/image/help/view2.png" />
+                </p>
+              </div>
+
+              <div class="banner-item swiper-slide">
+                <p class="banner-item-title">
+                  <img src="./assets/image/help/title.png" />
+                  step3
+                  <img src="./assets/image/help/title.png" />
+                </p>
+                <p class="banner-item-into">
+                  选择证书
+                </p>
+                <p class="banner-item-pic">
+                  <img src="./assets/image/help/view3.png" />
+                </p>
+              </div>
+
+              <div class="banner-item swiper-slide">
+                <p class="banner-item-title">
+                  <img src="./assets/image/help/title.png" />
+                  step4
+                  <img src="./assets/image/help/title.png" />
+                </p>
+                <p class="banner-item-into">
+                  信任证书
+                </p>
+                <p class="banner-item-pic">
+                  <img src="./assets/image/help/view4.png" />
+                </p>
+              </div>
+
+              <div class="banner-item swiper-slide">
+                <p class="banner-item-title">
+                  <img src="./assets/image/help/title.png" />
+                  step5
+                  <img src="./assets/image/help/title.png" />
+                </p>
+                <p class="banner-item-into">
+                  确认信任，进入实况体育
+                </p>
+                <p class="banner-item-pic">
+                  <img src="./assets/image/help/view5.png" />
+                </p>
+              </div>
+            </div>
+            <div class="swiper-pagination banner-pagination"></div>
+            <div class="swiper-button-prev banner-button-prev"></div>
+            <div class="swiper-button-next banner-button-next"></div>
+          </div>
+
+          <div class="back-to-download">
+            <img src="./assets/image/help/back.png" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <img
+      id="guideimg"
+      class="guideimage"
+      src="./assets/image/guide.png"
+      style="display: none;"
+    />
+
+    <div class="notsupportdiv" id="notsupport" style="display:none;">
+      <img class="guideimage" src="./assets/image/image_notsupport_bg@2x.png" />
+      <a class="copybtn">
+        <img
+          class="copyicon"
+          src="./assets/image/image_notsupport_copy@2x.png"
+        />
+      </a>
+    </div>
+
+    <script src="./script/download.js"></script>
+  </body>
+</html>

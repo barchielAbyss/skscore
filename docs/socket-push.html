@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+        <title>WEB_SOCKET 推送说明</title>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+        
+        <style>
+            body{
+                background-color: #000;
+                color: #fff;
+            }
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        
+        
+    </head>
+    <body>
+        <h1 id="WEBSOCKET-%E6%8E%A8%E9%80%81%E8%AF%B4%E6%98%8E">WEB_SOCKET 推送说明</h1>
+<h2 id="%E8%B6%B3%E7%90%83%E7%B1%BB">足球类</h2>
+<hr>
+<h3 id="%E6%AF%94%E8%B5%9B%E7%8A%B6%E6%80%81%E6%8E%A8%E9%80%81">比赛状态推送</h3>
+<pre><code class="language-json"><div>{
+    <span class="hljs-attr">"cmd"</span>: <span class="hljs-string">"P01"</span>,
+    <span class="hljs-attr">"data"</span>: {
+        <span class="hljs-attr">"mid"</span>: <span class="hljs-number">1</span>,     //比赛id
+        <span class="hljs-attr">"sports"</span>: <span class="hljs-number">1</span>,     //体育类型。1足球，2篮球
+        <span class="hljs-attr">"event"</span>: <span class="hljs-string">"100"</span>, // 事件编号。0: 进球,1: 点球,2: 乌龙球, 3: 黄牌,4: 红牌,5: 两黄变一红 <span class="hljs-number">8</span>:点球射失。<span class="hljs-number">100</span>比赛状态变化。<span class="hljs-number">200</span>比赛技术统计变化
+        <span class="hljs-string">"trigger"</span>: <span class="hljs-number">0</span>, //事件发生方（0中立，1主队，2客队）
+        <span class="hljs-attr">"ext"</span>: {
+                <span class="hljs-attr">"status"</span>: <span class="hljs-number">1</span>,// 比赛状态。0 :未开始 <span class="hljs-number">1</span>:上半场 <span class="hljs-number">2</span>:中场 <span class="hljs-number">3</span>:下半场 <span class="hljs-number">4</span>:完场 <span class="hljs-number">5</span>:中断 <span class="hljs-number">6</span>:取消 <span class="hljs-number">7</span>:加时 <span class="hljs-number">8</span>:加时 <span class="hljs-number">9</span>:加时 <span class="hljs-number">10</span>:完场 <span class="hljs-number">11</span>:点球大战 <span class="hljs-number">12</span>:全场结束 <span class="hljs-number">13</span>:延期 <span class="hljs-number">14</span>: 腰斩 <span class="hljs-number">15</span>: 待定 <span class="hljs-number">16</span>:金球 <span class="hljs-number">17</span>:未开始（<span class="hljs-number">0</span>、<span class="hljs-number">17</span> 同为未开始，<span class="hljs-number">7</span>、<span class="hljs-number">8</span>、<span class="hljs-number">9</span> 为加时，<span class="hljs-number">4</span>、<span class="hljs-number">10</span>、<span class="hljs-number">12</span> 完场）
+                <span class="hljs-string">"t_start_time"</span>:<span class="hljs-string">""</span>,// 比赛实际开始时间
+                <span class="hljs-attr">"server_time"</span>: <span class="hljs-string">""</span>// 系统时间。比赛时间=server_time - t_start_time。
+            }
+    }
+}
+</div></code></pre>
+<hr>
+<h3 id="%E8%BF%9B%E7%90%83%E7%BA%A2%E9%BB%84%E7%89%8C%E6%8D%A2%E4%BA%BA%E4%BA%8B%E4%BB%B6%E6%8E%A8%E9%80%81%E6%A0%BC%E5%BC%8F">进球、红黄牌、换人事件推送格式</h3>
+<pre><code class="language-json"><div>{
+    <span class="hljs-attr">"cmd"</span>: <span class="hljs-string">"P02"</span>,
+    <span class="hljs-attr">"data"</span>: {
+        <span class="hljs-attr">"mid"</span>: <span class="hljs-number">1</span>,     //比赛id
+        <span class="hljs-attr">"sports"</span>: <span class="hljs-number">1</span>,     //体育类型。1足球，2篮球
+        <span class="hljs-attr">"event"</span>: <span class="hljs-string">"1"</span>, // 事件编号。0: 进球,1: 点球,2: 乌龙球, 3: 黄牌,4: 红牌,5: 两黄变一红 <span class="hljs-number">8</span>:点球射失。<span class="hljs-number">100</span>比赛状态变化。<span class="hljs-number">200</span>比赛技术统计变化。
+        <span class="hljs-string">"trigger"</span>: <span class="hljs-number">0</span>, //事件发生方（0中立，1主队，2客队）
+        <span class="hljs-attr">"ext"</span>: {
+                <span class="hljs-attr">"minute"</span>: <span class="hljs-string">"88"</span>,// 事件时间
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"1"</span>,// 类型(1 为主队，2 为客队)
+                <span class="hljs-attr">"event"</span>: <span class="hljs-string">"300"</span>,// 事件编号。0: 进球,1: 点球,2: 乌龙球, 3: 黄牌,4: 红牌,5: 两黄变一红 <span class="hljs-number">8</span>:点球射失。<span class="hljs-number">300</span>换人事件。<span class="hljs-number">101</span>比赛开始，<span class="hljs-number">102</span>中场，<span class="hljs-number">104</span>完场，<span class="hljs-number">107</span>加时开始，<span class="hljs-number">110</span>加时结束
+                <span class="hljs-string">"ename"</span>: <span class="hljs-string">"换人"</span>,// 事件名称。对应事件编号
+                <span class="hljs-attr">"score"</span>: <span class="hljs-string">""</span>,// 事件发生后比分
+                <span class="hljs-attr">"pid"</span>: <span class="hljs-string">"7734"</span>,// 换人事件：上场球员编号。 其他事件：事件相关球员ID。
+                <span class="hljs-attr">"pName"</span>: <span class="hljs-string">"乔治·圣地亚哥·迪亚兹·门德斯"</span>,// 换人事件：上场球员名称。 其他事件：事件相关球员名。
+                <span class="hljs-attr">"outtime"</span>: <span class="hljs-string">"0"</span>,// 是否伤停补时 0否1是
+                <span class="hljs-attr">"pid2"</span>: <span class="hljs-string">"7733"</span>,// 换人事件：下场球员编号。  其他事件：助攻球员编号。
+                <span class="hljs-attr">"pName2"</span>: <span class="hljs-string">"乔尔·坎贝尔"</span>,// 换人事件：下场球员名称。  其他事件：助攻球员名称
+                <span class="hljs-attr">"yellow"</span>: {
+                    <span class="hljs-attr">"home"</span>: <span class="hljs-string">"2"</span>,// 主队黄牌数。事件为 3: 黄牌,4: 红牌,5: 两黄变一红 时出现
+                    <span class="hljs-string">"guest"</span>: <span class="hljs-string">"3"</span>// 客队黄牌数。事件为 <span class="hljs-number">3</span>: 黄牌,4: 红牌,5: 两黄变一红 时出现
+                },
+                <span class="hljs-attr">"red"</span>: {
+                    <span class="hljs-attr">"home"</span>: <span class="hljs-string">"1"</span>,// 主队红牌数。事件为 3: 黄牌,4: 红牌,5: 两黄变一红 时出现
+                    <span class="hljs-string">"guest"</span>: <span class="hljs-string">"1"</span>// 客队红牌数。事件为 <span class="hljs-number">3</span>: 黄牌,4: 红牌,5: 两黄变一红 时出现
+                }
+            }
+    }
+}
+</div></code></pre>
+<hr>
+<h3 id="%E6%AF%94%E8%B5%9B%E6%8A%80%E6%9C%AF%E7%BB%9F%E8%AE%A1%E5%8F%98%E5%8C%96">比赛技术统计变化</h3>
+<pre><code class="language-json"><div>{
+    <span class="hljs-attr">"cmd"</span>: <span class="hljs-string">"P03"</span>,
+    <span class="hljs-attr">"data"</span>: {
+        <span class="hljs-attr">"mid"</span>: <span class="hljs-number">1</span>,     //比赛id
+        <span class="hljs-attr">"sports"</span>: <span class="hljs-number">1</span>,     //体育类型。1足球，2篮球
+        <span class="hljs-attr">"event"</span>: <span class="hljs-string">"200"</span>, // 事件编号。0: 进球,1: 点球,2: 乌龙球, 3: 黄牌,4: 红牌,5: 两黄变一红 <span class="hljs-number">8</span>:点球射失。<span class="hljs-number">100</span>比赛状态变化。<span class="hljs-number">200</span>比赛技术统计变化
+        <span class="hljs-string">"trigger"</span>: <span class="hljs-number">0</span>, //事件发生方（0中立，1主队，2客队）
+        <span class="hljs-attr">"ext"</span>: {
+            <span class="hljs-attr">"kickoff"</span>: {
+                <span class="hljs-attr">"home"</span>: <span class="hljs-string">""</span>,// 主队数据
+                <span class="hljs-attr">"guest"</span>: <span class="hljs-string">"*"</span>// 客队数据
+            },
+        }
+    }
+}
+</div></code></pre>
+<hr>
+<h3 id="%E6%AF%94%E5%88%86%E5%8F%98%E5%8C%96">比分变化</h3>
+<pre><code class="language-json"><div>{
+    <span class="hljs-attr">"cmd"</span>: <span class="hljs-string">"P04"</span>,
+    <span class="hljs-attr">"data"</span>: {
+        <span class="hljs-attr">"mid"</span>: <span class="hljs-number">1</span>,     //比赛id
+        <span class="hljs-attr">"sports"</span>: <span class="hljs-number">1</span>,     //体育类型。1足球，2篮球
+        <span class="hljs-attr">"event"</span>: <span class="hljs-string">"0"</span>, // 事件编号。0进球
+        <span class="hljs-attr">"trigger"</span>: <span class="hljs-number">1</span>, //事件发生方（0中立，1主队，2客队）
+        <span class="hljs-attr">"ext"</span>: {
+                <span class="hljs-attr">"status"</span>: <span class="hljs-number">1</span>,// 比赛状态。0 :未开始 <span class="hljs-number">1</span>:上半场 <span class="hljs-number">2</span>:中场 <span class="hljs-number">3</span>:下半场 <span class="hljs-number">4</span>:完场 <span class="hljs-number">5</span>:中断 <span class="hljs-number">6</span>:取消 <span class="hljs-number">7</span>:加时 <span class="hljs-number">8</span>:加时 <span class="hljs-number">9</span>:加时 <span class="hljs-number">10</span>:完场 <span class="hljs-number">11</span>:点球大战 <span class="hljs-number">12</span>:全场结束 <span class="hljs-number">13</span>:延期 <span class="hljs-number">14</span>: 腰斩 <span class="hljs-number">15</span>: 待定 <span class="hljs-number">16</span>:金球 <span class="hljs-number">17</span>:未开始（<span class="hljs-number">0</span>、<span class="hljs-number">17</span> 同为未开始，<span class="hljs-number">7</span>、<span class="hljs-number">8</span>、<span class="hljs-number">9</span> 为加时，<span class="hljs-number">4</span>、<span class="hljs-number">10</span>、<span class="hljs-number">12</span> 完场）
+                <span class="hljs-string">"minute"</span>: <span class="hljs-number">6</span>,// 事件发生时间
+                <span class="hljs-attr">"score"</span>: <span class="hljs-string">"1-0"</span>,// 事件发生后比分
+            }
+    }
+}
+</div></code></pre>
+<hr>
+<h3 id="%E8%B6%B3%E7%90%83%E6%AC%A7%E7%9B%98%E6%A0%BC%E5%BC%8F">足球欧盘格式</h3>
+<pre><code class="language-json"><div>{
+    <span class="hljs-attr">"cmd"</span>:<span class="hljs-string">"P08"</span>,
+    <span class="hljs-attr">"data"</span>:{
+        <span class="hljs-attr">"list"</span>:[
+            {
+                <span class="hljs-attr">"mid"</span>:<span class="hljs-number">1</span>,// 比赛id
+                <span class="hljs-attr">"company_id"</span>:<span class="hljs-number">1</span>,// 指数公司ID
+                <span class="hljs-attr">"odd"</span>:{
+                    <span class="hljs-attr">"w"</span>:<span class="hljs-string">"2.55"</span>,// 主胜赔率
+                    <span class="hljs-attr">"d"</span>:<span class="hljs-string">"2.70"</span>,// 平局赔率
+                    <span class="hljs-attr">"l"</span>:<span class="hljs-string">"2.70"</span>,// 客胜赔率
+                    <span class="hljs-attr">"wi"</span>:<span class="hljs-string">"2.55"</span>,// 主胜初盘
+                    <span class="hljs-attr">"di"</span>:<span class="hljs-string">"2.70"</span>,// 平局初盘
+                    <span class="hljs-attr">"li"</span>:<span class="hljs-string">"2.70"</span>// 客胜初盘
+                }
+            }
+        ]
+    }
+}
+</div></code></pre>
+<hr>
+<h3 id="%E8%B6%B3%E7%90%83%E4%BA%9A%E7%9B%98%E6%A0%BC%E5%BC%8F">足球亚盘格式</h3>
+<pre><code class="language-json"><div>{
+    <span class="hljs-attr">"cmd"</span>:<span class="hljs-string">"P09"</span>,
+    <span class="hljs-attr">"data"</span>:{
+        <span class="hljs-attr">"list"</span>:[
+            {
+                <span class="hljs-attr">"mid"</span>:<span class="hljs-number">1</span>,// 比赛id
+                <span class="hljs-attr">"company_id"</span>:<span class="hljs-number">1</span>,// 指数公司ID
+                <span class="hljs-attr">"odd"</span>:{
+                    <span class="hljs-attr">"h"</span>:<span class="hljs-string">"1.01"</span>,// 主赔
+                    <span class="hljs-attr">"g"</span>:<span class="hljs-string">"0.85"</span>,// 客赔
+                    <span class="hljs-attr">"l"</span>:<span class="hljs-string">"-3.50"</span>,// 让球
+                    <span class="hljs-attr">"hi"</span>:<span class="hljs-string">"0.92"</span>,// 主赔（初盘）
+                    <span class="hljs-attr">"gi"</span>:<span class="hljs-string">"0.93"</span>,// 客赔（初盘）
+                    <span class="hljs-attr">"li"</span>:<span class="hljs-string">"-3.25"</span>// 让球（初盘）
+                }
+            }
+        ]
+    }
+}
+</div></code></pre>
+<hr>
+<h3 id="%E8%B6%B3%E7%90%83%E5%A4%A7%E5%B0%8F%E7%9B%98%E6%A0%BC%E5%BC%8F">足球大小盘格式</h3>
+<pre><code class="language-json"><div>{
+    <span class="hljs-attr">"cmd"</span>:<span class="hljs-string">"P10"</span>,
+    <span class="hljs-attr">"data"</span>:{
+        <span class="hljs-attr">"list"</span>:[
+            {
+                <span class="hljs-attr">"mid"</span>:<span class="hljs-number">1</span>,//比赛id
+                <span class="hljs-attr">"company_id"</span>:<span class="hljs-number">1</span>,//指数公司ID
+                <span class="hljs-attr">"odd"</span>:{
+                    <span class="hljs-attr">"b"</span>:<span class="hljs-string">"0.84"</span>,// 大球
+                    <span class="hljs-attr">"s"</span>:<span class="hljs-string">"0.99"</span>,// 小球
+                    <span class="hljs-attr">"t"</span>:<span class="hljs-string">"4.50"</span>,// 总分
+                    <span class="hljs-attr">"bi"</span>:<span class="hljs-string">"0.89"</span>,// 大球（初盘）
+                    <span class="hljs-attr">"si"</span>:<span class="hljs-string">"0.92"</span>,// 小球（初盘）
+                    <span class="hljs-attr">"ti"</span>:<span class="hljs-string">"4.25"</span>// 总分（初盘）
+                }
+            }
+        ]
+    }
+}
+</div></code></pre>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<h2 id="%E7%AF%AE%E7%90%83%E7%B1%BB">篮球类</h2>
+<hr>
+<h3 id="%E6%AF%94%E8%B5%9B%E7%8A%B6%E6%80%81%E5%8F%98%E5%8C%96%E6%A0%BC%E5%BC%8F">比赛状态变化格式</h3>
+<pre><code class="language-json"><div>{
+    <span class="hljs-attr">"cmd"</span>: <span class="hljs-string">"P05"</span>,
+    <span class="hljs-attr">"data"</span>: {
+        <span class="hljs-attr">"mid"</span>: <span class="hljs-number">1</span>,     //比赛id
+        <span class="hljs-attr">"sports"</span>: <span class="hljs-number">2</span>,     //体育类型。1足球，2篮球
+        <span class="hljs-attr">"event"</span>: <span class="hljs-string">"100"</span>, // 事件编号。100比赛状态变化。200比赛技术统计变化
+        <span class="hljs-attr">"trigger"</span>: <span class="hljs-number">0</span>, //事件发生方（0中立，1主队，2客队）
+        <span class="hljs-attr">"ext"</span>: {
+                <span class="hljs-attr">"status"</span>: <span class="hljs-number">1</span>,// 比赛状态值。0 ：未开始,1：第一节,2：第一节完,3：第二节,4：第二节完,5：第三节,6：第三节完,7：第四节,8：第四节完,9：完场,10：加时,11：完场(加),12：中断,13：取消,14: 延期,15: 腰斩,16待定
+                <span class="hljs-attr">"r_time"</span>:<span class="hljs-string">""</span>,// 比赛当前剩余时间，配合比赛状态使用
+            }
+    }
+}
+</div></code></pre>
+<hr>
+<h3 id="%E6%AF%94%E5%88%86%E5%8F%98%E5%8C%96%E6%8E%A8%E9%80%81%E6%A0%BC%E5%BC%8F">比分变化推送格式</h3>
+<pre><code class="language-json"><div>{
+    <span class="hljs-attr">"cmd"</span>: <span class="hljs-string">"P06"</span>,
+    <span class="hljs-attr">"data"</span>: {
+        <span class="hljs-attr">"mid"</span>: <span class="hljs-number">1</span>,     //比赛id
+        <span class="hljs-attr">"sports"</span>: <span class="hljs-number">2</span>,     //体育类型。1足球，2篮球
+        <span class="hljs-attr">"event"</span>: <span class="hljs-string">"300"</span>, // 事件编号。100比赛状态变化。200比赛技术统计变化。300比分变化
+        <span class="hljs-attr">"trigger"</span>: <span class="hljs-number">0</span>, //事件发生方（0两队都有变化，1主队，2客队）
+        <span class="hljs-attr">"ext"</span>: {
+                <span class="hljs-attr">"home_total"</span>: <span class="hljs-number">122</span>,// 主队总得分
+                <span class="hljs-attr">"home_first"</span>: <span class="hljs-number">26</span>,// 主队第一节得分
+                <span class="hljs-attr">"home_second"</span>: <span class="hljs-number">38</span>,// 主队第二节得分
+                <span class="hljs-attr">"home_third"</span>: <span class="hljs-number">28</span>,// 主队第三节得分
+                <span class="hljs-attr">"home_fourth"</span>: <span class="hljs-number">30</span>,// 主队第四节得分
+                <span class="hljs-attr">"home_ot"</span>: <span class="hljs-number">0</span>,// 主队加时得分
+                <span class="hljs-attr">"guest_total"</span>: <span class="hljs-number">115</span>,// 客队总得分
+                <span class="hljs-attr">"guest_first"</span>: <span class="hljs-number">35</span>,// 客队第一节得分
+                <span class="hljs-attr">"guest_second"</span>: <span class="hljs-number">25</span>,// 客队第二节得分
+                <span class="hljs-attr">"guest_third"</span>: <span class="hljs-number">30</span>,// 客队第三节得分
+                <span class="hljs-attr">"guest_fourth"</span>: <span class="hljs-number">25</span>,// 客队第四节得分
+                <span class="hljs-attr">"guest_ot"</span>: <span class="hljs-number">0</span>,// 客队加时得分
+                <span class="hljs-attr">"home_h"</span>: <span class="hljs-number">64</span>,// 主队半场得分
+                <span class="hljs-attr">"guest_h"</span>: <span class="hljs-number">60</span>,// 客队半场得分
+                <span class="hljs-attr">"r_time"</span>: <span class="hljs-string">""</span>,// 比赛当前剩余时间，配合比赛状态使用
+                <span class="hljs-attr">"status"</span>: <span class="hljs-number">9</span>,// 比赛状态值。0 ：未开始,1：第一节,2：第一节完,3：第二节,4：第二节完,5：第三节,6：第三节完,7：第四节,8：第四节完,9：完场,10：加时,11：完场(加),12：中断,13：取消,14: 延期,15: 腰斩,16待定
+            }
+    }
+}
+</div></code></pre>
+<hr>
+<h3 id="%E6%AF%94%E8%B5%9B%E6%8A%80%E6%9C%AF%E7%BB%9F%E8%AE%A1%E5%8F%98%E5%8C%96-1">比赛技术统计变化</h3>
+<pre><code class="language-json"><div>{
+    <span class="hljs-attr">"cmd"</span>: <span class="hljs-string">"P07"</span>,
+    <span class="hljs-attr">"data"</span>: {
+        <span class="hljs-attr">"mid"</span>: <span class="hljs-number">1</span>,     //比赛id
+        <span class="hljs-attr">"sports"</span>: <span class="hljs-number">2</span>,     //体育类型。1足球，2篮球
+        <span class="hljs-attr">"event"</span>: <span class="hljs-string">"200"</span>, // 事件编号。100比赛状态变化。200比赛技术统计变化。300比分变化
+        <span class="hljs-attr">"trigger"</span>: <span class="hljs-number">0</span>, //事件发生方（0中立，1主队，2客队）
+        <span class="hljs-attr">"ext"</span>: {
+            <span class="hljs-attr">"home_stat"</span>: [
+                [
+                    <span class="hljs-string">"勒布朗-詹姆斯"</span>,// 球员名
+                    <span class="hljs-number">84</span>,// 球员ID。(值有可能为<span class="hljs-number">0</span>，则无球员资料库)
+                    <span class="hljs-string">""</span>,// nba和wnba（F：前锋、C中锋、G后卫） cba <span class="hljs-number">1</span>为首发，无具体的位置
+                    <span class="hljs-string">"39:14"</span>,// 在场时间
+                    <span class="hljs-string">"8-17"</span>,// 投篮
+                    <span class="hljs-string">"1-6"</span>,// 三分
+                    <span class="hljs-string">"8-11"</span>,// 罚球
+                    <span class="hljs-string">"0"</span>,// 进攻
+                    <span class="hljs-string">"8"</span>,// 防守
+                    <span class="hljs-string">"8"</span>,// 总数
+                    <span class="hljs-string">"6"</span>,// 助攻
+                    <span class="hljs-string">"3"</span>,// 犯规
+                    <span class="hljs-string">"1"</span>,// 抢断
+                    <span class="hljs-string">"2"</span>,// 失误
+                    <span class="hljs-string">"1"</span>,// 盖帽
+                    <span class="hljs-string">"25"</span>,// 得分
+                    <span class="hljs-string">""</span>,// 快攻（仅CBA）
+                    <span class="hljs-string">""</span>,// 扣篮（仅CBA）
+                    <span class="hljs-string">""</span>// 球员号码
+                ]
+            ],
+            <span class="hljs-attr">"guest_stat"</span>: [
+                [
+                    <span class="hljs-string">"兰德里-沙梅特"</span>,
+                    <span class="hljs-number">75</span>,
+                    <span class="hljs-string">""</span>,
+                    <span class="hljs-string">"32:54"</span>,
+                    <span class="hljs-string">"3-8"</span>,
+                    <span class="hljs-string">"3-7"</span>,
+                    <span class="hljs-string">"3-3"</span>,
+                    <span class="hljs-string">"0"</span>,
+                    <span class="hljs-string">"2"</span>,
+                    <span class="hljs-string">"2"</span>,
+                    <span class="hljs-string">"3"</span>,
+                    <span class="hljs-string">"2"</span>,
+                    <span class="hljs-string">"0"</span>,
+                    <span class="hljs-string">"0"</span>,
+                    <span class="hljs-string">"0"</span>,
+                    <span class="hljs-string">"12"</span>,
+                    <span class="hljs-string">""</span>,
+                    <span class="hljs-string">""</span>,
+                    <span class="hljs-string">""</span>
+                ]
+            ],
+            <span class="hljs-attr">"home_stat_total"</span>: [// 主队技术统计合计
+                <span class="hljs-string">"224"</span>,// 时间
+                <span class="hljs-string">"35-86"</span>,// 投篮
+                <span class="hljs-string">"9-36"</span>,// 三分
+                <span class="hljs-string">"17-21"</span>,// 罚球
+                <span class="hljs-string">"7"</span>,// 进攻
+                <span class="hljs-string">"31"</span>,// 防守
+                <span class="hljs-string">"38"</span>,// 总数
+                <span class="hljs-string">"21"</span>,// 助攻
+                <span class="hljs-string">"21"</span>,// 犯规
+                <span class="hljs-string">"2"</span>,// 抢断
+                <span class="hljs-string">"12"</span>,// 失误
+                <span class="hljs-string">"5"</span>,// 盖帽
+                <span class="hljs-string">"96"</span>,// 得分
+                <span class="hljs-string">""</span>,// 快攻（仅CBA）
+                <span class="hljs-string">""</span>// 扣篮（仅CBA）
+            ],
+            <span class="hljs-attr">"guest_stat_total"</span>: [// 客队技术统计合计
+                <span class="hljs-string">"224"</span>,
+                <span class="hljs-string">"39-77"</span>,
+                <span class="hljs-string">"11-27"</span>,
+                <span class="hljs-string">"20-24"</span>,
+                <span class="hljs-string">"6"</span>,
+                <span class="hljs-string">"39"</span>,
+                <span class="hljs-string">"45"</span>,
+                <span class="hljs-string">"25"</span>,
+                <span class="hljs-string">"20"</span>,
+                <span class="hljs-string">"7"</span>,
+                <span class="hljs-string">"14"</span>,
+                <span class="hljs-string">"3"</span>,
+                <span class="hljs-string">"109"</span>,
+                <span class="hljs-string">""</span>,
+                <span class="hljs-string">""</span>
+            ]
+        }
+    }
+}
+</div></code></pre>
+<hr>
+<h3 id="%E7%AF%AE%E7%90%83%E6%AC%A7%E7%9B%98%E6%A0%BC%E5%BC%8F">篮球欧盘格式</h3>
+<pre><code class="language-json"><div>{
+    <span class="hljs-attr">"cmd"</span>:<span class="hljs-string">"P11"</span>,
+    <span class="hljs-attr">"data"</span>:{
+        <span class="hljs-attr">"list"</span>:[
+            {
+                <span class="hljs-attr">"mid"</span>:<span class="hljs-number">1</span>,//比赛id
+                <span class="hljs-attr">"company_id"</span>:<span class="hljs-number">1</span>,//指数公司ID
+                <span class="hljs-attr">"odd"</span>:{
+                    <span class="hljs-attr">"h"</span>:<span class="hljs-string">"0.31"</span>,// 主赔
+                    <span class="hljs-attr">"g"</span>:<span class="hljs-string">"2.20"</span>,// 客赔
+                    <span class="hljs-attr">"hi"</span>:<span class="hljs-string">"0.31"</span>,// 主赔初盘
+                    <span class="hljs-attr">"gi"</span>:<span class="hljs-string">"2.20"</span>// 客赔初盘
+                }
+            }
+        ]
+    }
+}
+</div></code></pre>
+<hr>
+<h3 id="%E7%AF%AE%E7%90%83%E4%BA%9A%E7%9B%98%E6%A0%BC%E5%BC%8F">篮球亚盘格式</h3>
+<pre><code class="language-json"><div>{
+    <span class="hljs-attr">"cmd"</span>:<span class="hljs-string">"P12"</span>,
+    <span class="hljs-attr">"data"</span>:{
+        <span class="hljs-attr">"list"</span>:[
+            {
+                <span class="hljs-attr">"mid"</span>:<span class="hljs-number">1</span>,//比赛id
+                <span class="hljs-attr">"company_id"</span>:<span class="hljs-number">1</span>,//指数公司ID
+                <span class="hljs-attr">"odd"</span>:{
+                    <span class="hljs-attr">"h"</span>:<span class="hljs-string">"0.94"</span>,// 主赔
+                    <span class="hljs-attr">"g"</span>:<span class="hljs-string">"0.88"</span>,// 客赔
+                    <span class="hljs-attr">"l"</span>:<span class="hljs-string">"-7.00"</span>,// 让球
+                    <span class="hljs-attr">"hi"</span>:<span class="hljs-string">"0.94"</span>,// 主赔初盘
+                    <span class="hljs-attr">"gi"</span>:<span class="hljs-string">"0.88"</span>,// 客赔初盘
+                    <span class="hljs-attr">"li"</span>:<span class="hljs-string">"-7.00"</span>// 让球初盘
+                }
+            }
+        ]
+    }
+}
+</div></code></pre>
+<hr>
+<h3 id="%E7%AF%AE%E7%90%83%E5%A4%A7%E5%B0%8F%E7%9B%98%E6%A0%BC%E5%BC%8F">篮球大小盘格式</h3>
+<pre><code class="language-json"><div>{
+    <span class="hljs-attr">"cmd"</span>:<span class="hljs-string">"P13"</span>,
+    <span class="hljs-attr">"data"</span>:{
+        <span class="hljs-attr">"list"</span>:[
+            {
+                <span class="hljs-attr">"mid"</span>:<span class="hljs-number">1</span>,//比赛id
+                <span class="hljs-attr">"company_id"</span>:<span class="hljs-number">1</span>,//指数公司ID
+                <span class="hljs-attr">"odd"</span>:{
+                    <span class="hljs-attr">"b"</span>:<span class="hljs-string">"0.94"</span>,// 大球
+                    <span class="hljs-attr">"s"</span>:<span class="hljs-string">"0.88"</span>,// 小球
+                    <span class="hljs-attr">"t"</span>:<span class="hljs-string">"165.00"</span>,// 总分
+                    <span class="hljs-attr">"bi"</span>:<span class="hljs-string">"0.90"</span>,// 大球初盘
+                    <span class="hljs-attr">"si"</span>:<span class="hljs-string">"0.88"</span>,// 小球初盘
+                    <span class="hljs-attr">"ti"</span>:<span class="hljs-string">"165.50"</span>// 总分初盘
+                }
+            }
+        ]
+    }
+}
+</div></code></pre>
+
+    </body>
+    </html>
